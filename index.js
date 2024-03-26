@@ -29,58 +29,60 @@ const guardians = {
     "Groot":"Hip-Hop"
 };
 
-// Initialize an empty object to store songs grouped by genre
-const songsByGenre = {};
+function generatePlaylist(guardians, songs) {
+    // Initialize an empty object to store songs grouped by genre
+    const songsByGenre = {};
 
-// Iterate through each song in the songs array
-for (let i = 0; i < songs.length; i++) {
-    const song = songs[i];
-    const genre = song.genre;
+    // Iterate through each song in the songs array
+    songs.forEach(song => {
+        const genre = song.genre;
 
-    // Check if the genre already exists as a key in the songsByGenre object
-    if (!songsByGenre[genre]) {
-        // If the genre doesn't exist, create an empty array for it
-        songsByGenre[genre] = [];
-    }
-    songsByGenre[genre].push({Song: song.title, artist: song.artist});
-}
+        // Check if the genre already exists as a key in the songsByGenre object
+        if (!songsByGenre[genre]) {
+            // If the genre doesn't exist, create an empty array for it
+            songsByGenre[genre] = [];
+        }
+        songsByGenre[genre].push({ Song: song.title, artist: song.artist });
+    });
 
-// Select the div element with id="playlists"
-const playlistsDiv = document.getElementById("playlists");
+    // Select the div element with id="playlists"
+    const playlistsDiv = document.getElementById("playlists");
 
-// Loop through each genre in songsByGenre
-for (let genre in songsByGenre) {
-    if (songsByGenre.hasOwnProperty(genre)) {
+    // Loop through each genre in songsByGenre
+    Object.keys(songsByGenre).forEach(genre => {
+
         // Create a new div element for the current genre
         const genreDiv = document.createElement("div");
         genreDiv.classList.add("playlist");
 
-        // Loop through each guardian key
-        for (let guardian in guardians) {
-            if (guardians.hasOwnProperty(guardian)) {
-                // If the guardian's preferred genre matches the current genre
-                if (guardians[guardian] === genre) {
-                    // Create an unordered list to hold the songs for this guardian
-                    const guardianSongList = document.createElement("ul");
-                    // Create a list item for each song for this guardian
-                    songsByGenre[genre].forEach(song => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = `${song.Song} - ${song.artist}`;
-                        guardianSongList.appendChild(listItem);
-                    });
+        // Filter guardians based on the current genre
+        const guardiansForGenre = Object.keys(guardians).filter(guardian => guardians[guardian] === genre);
 
-                    // Create a header element for the guardian's name
-                    const guardianHeader = document.createElement("h3");
-                    guardianHeader.textContent = guardian;
+        // Loop through each guardian for the current genre
+        guardiansForGenre.forEach(guardian => {
+            // Create an unordered list to hold the songs for this guardian
+            const guardianSongList = document.createElement("ul");
 
-                    // Append the guardian header and their song list to the genre div
-                    genreDiv.appendChild(guardianHeader);
-                    genreDiv.appendChild(guardianSongList);
-                }
-            }
-        }
+            // Map songs for current genre to list items
+            songsByGenre[genre].map(song => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${song.Song} - ${song.artist}`;
+                return listItem;
+            }).forEach(listItem => {
+                guardianSongList.appendChild(listItem);
+            });
+
+            // Create a header element for the guardian's name
+            const guardianHeader = document.createElement("h3");
+            guardianHeader.textContent = guardian;
+
+            // Append the guardian header and their song list to the genre div
+            genreDiv.appendChild(guardianHeader);
+            genreDiv.appendChild(guardianSongList);
+        });
 
         // Append the genre div to the playlists div
         playlistsDiv.appendChild(genreDiv);
-    }
+    });
 }
+generatePlaylist(guardians, songs);
