@@ -29,18 +29,43 @@ const guardians = {
     "Rocket":"R&B",
     "Groot":"Hip-Hop"
 
-};
+}; 
 
+//function generatePlaylist(guardians, songs) {
+// Initialize an empty object to store songs grouped by genre
+const songsByGenre = {};
+
+// Iterate through each song in the songs array
+for (let i = 0; i < songs.length; i++) {
+    const song = songs[i];
+    const genre = song.genre;
+
+    // Check if the genre already exists as a key in the songsByGenre object
+    if (!songsByGenre[genre]) {
+        // If the genre doesn't exist, create an empty array for it
+        songsByGenre[genre] = [];
+    }
+
+    // Push the current song into the array corresponding to its genre
+    // without including the genre inside each song object
+    songsByGenre[genre].push({Song: song.title, artist: song.artist});
+}
+console.log(songsByGenre)
+
+
+/*
 // Function to generate playlist based on preferred genre
 function generatePlaylist(guardians, songs) {
     // Use the map() function to create playlists for each Guardian
     
-    //use guardian object to find music(title and artist) linked to the Genre of each guardian
-    // create html to display each
+  
     // Use the map() function to create playlists for each Guardian
 }
 
 // Call generatePlaylist and display the playlists for each Guardian
-//generatePlaylist(guardians, songs);
+//generatePlaylist(guardians, songs);*/
 
 
+/*for(const [guardian, genre] of Object.entries(guardians)) {
+   
+}*/
