@@ -1,5 +1,5 @@
-// Array of song objects. Add at least 5 songs with title, artist, and genre properties.
-const songs = [
+  // Array of song objects. Add at least 5 songs with title, artist, and genre properties.
+  const songs = [
     { title: "Hooked on a Feeling", artist: "Blue Swede", genre: "Pop" },
     { title: "Moonage Daydream", artist: "David Bowie", genre: "Rock" },
     { title: "I Want You Back", artist: "The Jackson 5", genre: "Pop" },
@@ -20,7 +20,6 @@ const songs = [
     // Feel free to add even more songs
 ];
 
-
 // Object containing each Guardian's preferred genre
 const guardians = {
     "Star-Lord": "Rock",
@@ -28,10 +27,8 @@ const guardians = {
     "Drax":"Rap",
     "Rocket":"R&B",
     "Groot":"Hip-Hop"
+};
 
-}; 
-
-//function generatePlaylist(guardians, songs) {
 // Initialize an empty object to store songs grouped by genre
 const songsByGenre = {};
 
@@ -45,27 +42,45 @@ for (let i = 0; i < songs.length; i++) {
         // If the genre doesn't exist, create an empty array for it
         songsByGenre[genre] = [];
     }
-
-    // Push the current song into the array corresponding to its genre
-    // without including the genre inside each song object
     songsByGenre[genre].push({Song: song.title, artist: song.artist});
 }
-console.log(songsByGenre)
 
+// Select the div element with id="playlists"
+const playlistsDiv = document.getElementById("playlists");
 
-/*
-// Function to generate playlist based on preferred genre
-function generatePlaylist(guardians, songs) {
-    // Use the map() function to create playlists for each Guardian
-    
-  
-    // Use the map() function to create playlists for each Guardian
+// Loop through each genre in songsByGenre
+for (let genre in songsByGenre) {
+    if (songsByGenre.hasOwnProperty(genre)) {
+        // Create a new div element for the current genre
+        const genreDiv = document.createElement("div");
+        genreDiv.classList.add("playlist");
+
+        // Loop through each guardian key
+        for (let guardian in guardians) {
+            if (guardians.hasOwnProperty(guardian)) {
+                // If the guardian's preferred genre matches the current genre
+                if (guardians[guardian] === genre) {
+                    // Create an unordered list to hold the songs for this guardian
+                    const guardianSongList = document.createElement("ul");
+                    // Create a list item for each song for this guardian
+                    songsByGenre[genre].forEach(song => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `${song.Song} - ${song.artist}`;
+                        guardianSongList.appendChild(listItem);
+                    });
+
+                    // Create a header element for the guardian's name
+                    const guardianHeader = document.createElement("h3");
+                    guardianHeader.textContent = guardian;
+
+                    // Append the guardian header and their song list to the genre div
+                    genreDiv.appendChild(guardianHeader);
+                    genreDiv.appendChild(guardianSongList);
+                }
+            }
+        }
+
+        // Append the genre div to the playlists div
+        playlistsDiv.appendChild(genreDiv);
+    }
 }
-
-// Call generatePlaylist and display the playlists for each Guardian
-//generatePlaylist(guardians, songs);*/
-
-
-/*for(const [guardian, genre] of Object.entries(guardians)) {
-   
-}*/
