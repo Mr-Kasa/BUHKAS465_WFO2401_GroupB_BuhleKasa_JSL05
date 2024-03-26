@@ -16,7 +16,61 @@
     { title: "HiiPower", artist: "Kendrick Lamar", genre: "Rap" },
     { title: "Starboy", artist: "The Weeknd", genre: "Pop" },
     { title: "Complaints", artist: "Quavo", genre: "Hip-Hop" },
-    { title: "All the stars", artist: "SZA", genre: "R&B" }
+    { title: "All the stars", artist: "SZA", genre: "R&B" },
+    { title: "Shape of You", artist: "Ed Sheeran", genre: "Pop" },
+    { title: "Bohemian Rhapsody", artist: "Queen", genre: "Rock" },
+    { title: "Billie Jean", artist: "Michael Jackson", genre: "Pop" },
+    { title: "Stairway to Heaven", artist: "Led Zeppelin", genre: "Rock" },
+    { title: "Hotel California", artist: "Eagles", genre: "Rock" },
+    { title: "Thriller", artist: "Michael Jackson", genre: "Pop" },
+    { title: "Let's Get It On", artist: "Marvin Gaye", genre: "R&B" },
+    { title: "I Will Always Love You", artist: "Whitney Houston", genre: "R&B" },
+    { title: "Smells Like Teen Spirit", artist: "Nirvana", genre: "Rock" },
+    { title: "Sweet Child o' Mine", artist: "Guns N' Roses", genre: "Rock" },
+    { title: "Thinking Out Loud", artist: "Ed Sheeran", genre: "Pop" },
+    { title: "Empire State of Mind", artist: "Jay-Z ft. Alicia Keys", genre: "Hip-Hop" },
+    { title: "God's Plan", artist: "Drake", genre: "Rap" },
+    { title: "Lose Yourself", artist: "Eminem", genre: "Rap" },
+    { title: "Shape of My Heart", artist: "Sting", genre: "Pop" },
+    { title: "Watermelon Sugar", artist: "Harry Styles", genre: "Pop" },
+    { title: "I Feel It Coming", artist: "The Weeknd ft. Daft Punk", genre: "Pop" },
+    { title: "Toxic", artist: "Britney Spears", genre: "Pop" },
+    { title: "Girls Just Want to Have Fun", artist: "Cyndi Lauper", genre: "Pop" },
+    { title: "Smooth", artist: "Santana ft. Rob Thomas", genre: "Pop" },
+    { title: "Havana", artist: "Camila Cabello", genre: "Pop" },
+    { title: "Despacito", artist: "Luis Fonsi ft. Daddy Yankee", genre: "Pop" },
+    { title: "Shape of My Heart", artist: "Sting", genre: "Pop" },
+    { title: "I Will Survive", artist: "Gloria Gaynor", genre: "Pop" },
+    { title: "Let It Be", artist: "The Beatles", genre: "Pop" },
+    { title: "Billie Jean", artist: "Michael Jackson", genre: "Pop" },
+    { title: "Like a Prayer", artist: "Madonna", genre: "Pop" },
+    { title: "Sweet Caroline", artist: "Neil Diamond", genre: "Pop" },
+    { title: "Bohemian Rhapsody", artist: "Queen", genre: "Pop" },
+    { title: "Hotel California", artist: "Eagles", genre: "Pop" },
+    { title: "Under Pressure", artist: "Queen & David Bowie", genre: "Rock" },
+    { title: "Another Brick in the Wall", artist: "Pink Floyd", genre: "Rock" },
+    { title: "Back in Black", artist: "AC/DC", genre: "Rock" },
+    { title: "Smells Like Teen Spirit", artist: "Nirvana", genre: "Rock" },
+    { title: "Enter Sandman", artist: "Metallica", genre: "Rock" },
+    { title: "Eye of the Tiger", artist: "Survivor", genre: "Rock" },
+    { title: "Livin' on a Prayer", artist: "Bon Jovi", genre: "Rock" },
+    { title: "Sweet Child o' Mine", artist: "Guns N' Roses", genre: "Rock" },
+    { title: "Paradise City", artist: "Guns N' Roses", genre: "Rock" },
+    { title: "November Rain", artist: "Guns N' Roses", genre: "Rock" },
+    { title: "No Scrubs", artist: "TLC", genre: "R&B" },
+    { title: "End of the Road", artist: "Boyz II Men", genre: "R&B" },
+    { title: "I'll Make Love to You", artist: "Boyz II Men", genre: "R&B" },
+    { title: "Un-break My Heart", artist: "Toni Braxton", genre: "R&B" },
+    { title: "Waterfalls", artist: "TLC", genre: "R&B" },
+    { title: "Creep", artist: "TLC", genre: "R&B" },
+    { title: "Say My Name", artist: "Destiny's Child", genre: "R&B" },
+    { title: "Endless Love", artist: "Diana Ross & Lionel Richie", genre: "R&B" },
+    { title: "I Wanna Dance with Somebody", artist: "Whitney Houston", genre: "R&B" },
+    { title: "Return of the Mack", artist: "Mark Morrison", genre: "R&B" },
+    { title: "No Diggity", artist: "Blackstreet ft. Dr. Dre", genre: "R&B" },
+    { title: "I Want It That Way", artist: "Backstreet Boys", genre: "Pop" },
+    { title: "Wannabe", artist: "Spice Girls", genre: "Pop" },
+    { title: "Genie in a Bottle", artist: "Christina Aguilera", genre:"R&B"}
     // Feel free to add even more songs
 ];
 
@@ -63,18 +117,31 @@ function generatePlaylist(guardians, songs) {
             // Create an unordered list to hold the songs for this guardian
             const guardianSongList = document.createElement("ul");
 
-            // Map songs for current genre to list items
-            songsByGenre[genre].map(song => {
+             // Map songs for this genre to list items
+             songsByGenre[genre].map(song => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `${song.Song} - ${song.artist}`;
-                return listItem;
-            }).forEach(listItem => {
-                guardianSongList.appendChild(listItem);
+                const songTitle = document.createElement("span");      //Create html 
+
+                songTitle.textContent = song.Song;                      //asign the title song html values
+                songTitle.classList.add("song-title");
+                
+                const songArtist = document.createElement("span");          //assign the heading
+                songArtist.textContent = ` - ${song.artist}`;
+                
+                const songItem = document.createElement("li");              //create a list  of songs 
+                songItem.classList.add("song");
+                
+                songItem.appendChild(songTitle);                            //append html
+                songItem.appendChild(songArtist);
+                return songItem;
+            
+            }).forEach(songItem => {
+                guardianSongList.appendChild(songItem);
             });
 
             // Create a header element for the guardian's name
             const guardianHeader = document.createElement("h3");
-            guardianHeader.textContent = guardian;
+            guardianHeader.textContent = guardian+"'s PlayList";
 
             // Append the guardian header and their song list to the genre div
             genreDiv.appendChild(guardianHeader);
@@ -84,5 +151,6 @@ function generatePlaylist(guardians, songs) {
         // Append the genre div to the playlists div
         playlistsDiv.appendChild(genreDiv);
     });
+    
 }
 generatePlaylist(guardians, songs);
